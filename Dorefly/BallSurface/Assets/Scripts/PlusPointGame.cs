@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class PlusPointGame : MonoBehaviour
 {
     public Text scoreMain;
+    public Text bigScore;
+    public GameObject bossCastle;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,14 @@ public class PlusPointGame : MonoBehaviour
         if (collider.gameObject.tag == "Player")
         {
             int score = int.Parse(scoreMain.text);
-            scoreMain.text = (score + 10).ToString();
+            int finalScore = score + 10;
+            bigScore.text = (score + 1).ToString();
+            scoreMain.text = finalScore.ToString();
+            if (finalScore >= 100)
+            {
+                BossController bossHandle = bossCastle.gameObject.GetComponent<BossController>();
+                bossHandle.orderLayerForBoss(2);
+            }
         }
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class GoldMove : MonoBehaviour
 {
-    Vector3 pos;
     Text totalGold;
     public float speed;
     private void Start()

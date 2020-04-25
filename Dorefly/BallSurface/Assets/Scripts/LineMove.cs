@@ -43,31 +43,43 @@ public class LineMove : MonoBehaviour
         {
             if (this.transform.GetChild(i).transform.name == "BackgroundLine")
             {
+                float scaleHorizontal = UnityEngine.Random.Range(0.55f, 0.75f);
+                this.transform.GetChild(i).transform.localScale = new Vector3(scaleHorizontal, 1, 1);
                 Vector3 posBackgroundLine = this.transform.GetChild(i).transform.position;
                 Vector3 posGold = posBackgroundLine;
-                posGold.y = posBackgroundLine.y + 0.7f;
-                int[] hasGolds = { 0, 1, 2 };
-                int hasGold = UnityEngine.Random.Range(0, 4);
-                if (Array.IndexOf(hasGolds, hasGold) > -1)
-                {
-                    int resultGold = UnityEngine.Random.Range(5, 10);
-                    for (int numberGold = 0; numberGold < resultGold; numberGold++)
-                    {
-                        posGold.x = UnityEngine.Random.Range(4.8f, 11.0f);
-                        goldPooler.SpawnFromPool("Gold", posGold, Quaternion.identity);
-                    }
-                }
+                initializeGolds(posGold, posBackgroundLine);
 
-                posBackgroundLine.y += 0.7f;
-                float forEnemy = UnityEngine.Random.Range(1.0f, 3.6f);
-                posBackgroundLine.x -= forEnemy;
-                int[] hasEnemies = { 0, 1, 2, 3 };
-                int hasEnemy = UnityEngine.Random.Range(0, 5);
-                if (Array.IndexOf(hasEnemies, hasEnemy) > -1)
-                {
-                    enemiesPooler.SpawnFromPool("Enemy", posBackgroundLine, Quaternion.identity);
-                }
+                initializeEnemies(posBackgroundLine);
             }
+        }
+    }
+
+    void initializeGolds(Vector3 posGold, Vector3 posBackgroundLine)
+    {
+        posGold.y = posBackgroundLine.y + 0.7f;
+        int[] hasGolds = { 0, 1, 2 };
+        int hasGold = UnityEngine.Random.Range(0, 4);
+        if (Array.IndexOf(hasGolds, hasGold) > -1)
+        {
+            int resultGold = UnityEngine.Random.Range(5, 11);
+            for (int numberGold = 0; numberGold < resultGold; numberGold++)
+            {
+                posGold.x = UnityEngine.Random.Range(4.8f, 11.0f);
+                goldPooler.SpawnFromPool("Gold", posGold, Quaternion.identity);
+            }
+        }
+    }
+
+    void initializeEnemies(Vector3 posBackgroundLine)
+    {
+        posBackgroundLine.y += 0.7f;
+        float forEnemyPosX = UnityEngine.Random.Range(1.0f, 3.0f);
+        posBackgroundLine.x -= forEnemyPosX;
+        int[] hasEnemies = { 0, 1, 2, 3 };
+        int hasEnemy = UnityEngine.Random.Range(0, 5);
+        if (Array.IndexOf(hasEnemies, hasEnemy) > -1)
+        {
+            enemiesPooler.SpawnFromPool("Enemy", posBackgroundLine, Quaternion.identity);
         }
     }
 }

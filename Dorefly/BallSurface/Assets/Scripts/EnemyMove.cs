@@ -10,4 +10,12 @@ public class EnemyMove : MonoBehaviour
     {
         transform.Translate(Vector3.left * speed * Time.deltaTime);
     }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "Bullet")
+        {
+            gameObject.SetActive(false);
+        }
+    }
 }
